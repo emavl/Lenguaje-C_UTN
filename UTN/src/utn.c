@@ -422,6 +422,19 @@ int PedirNumeros (char mensaje[], char mensajeError[], int min, int max)
 }
 //=================================================
 
+int getNumber(char mensaje[], char mensajeError[]) {
+	int numero;
+	printf("%s", mensaje);
+	scanf("%d", &numero);
+	while (isdigit(numero) == 1) {
+		printf("%s", mensajeError);
+		scanf("%d", &numero);
+	}
+	return numero;
+}
+
+//=================================================
+
 int getNumber(int *pResultado, char *mensaje, char *mensajeError, int minimo,
 		int maximo)
 {

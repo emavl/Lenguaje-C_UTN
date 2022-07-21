@@ -198,6 +198,13 @@ char getChar(char mensaje[]);
  * @return
  */
 int getNumber(int *pResultado, char *mensaje, char *mensajeError, int minimo, int maximo);
+/**
+ *
+ * @param mensaje - mensaje de usuario.
+ * @param mensajeError
+ * @return retorna valor
+ */
+int getNumber(char mensaje[], char mensajeError[]);
 //====================================================
 /**
  * @brief
