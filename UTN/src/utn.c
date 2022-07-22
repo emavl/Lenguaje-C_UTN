@@ -370,6 +370,19 @@ int utn_getCharacter(char *resultado, char *mensaje, char *mensajeError,
 
 // ================================================
 
+void getChar(char input[],char mensaje[], char mensajeError[],int size) {
+
+	printf("%s", mensaje);
+	scanf("%s",input);
+	for (int i = 0; i < sizeof(input); ++i) {
+		while(isalpha(input[i])==0){
+			printf("%s", mensajeError);
+			scanf("%s",input);
+		}
+	}
+}
+// ================================================
+
 // IMPRIMIR UN ARRAY
 
 void utn_imprimirArray(int arrayInt[], int tam) {

@@ -81,6 +81,14 @@ int utn_getFloat(float *pResultado, char *mensaje, char *mensajeError,float mini
  */
 int utn_getCharacter(char* resultado, char* mensaje, char* mensajeError, char minimo, char maximo, int reintentos);
 /**
+ *
+ * @param input - array.
+ * @param mensaje - mensaje de usuario.
+ * @param mensajeError - mensaje de error.
+ * @param size - tamaño.
+ */
+void getChar(char input[],char mensaje[], char mensajeError[],int size);
+/**
  * \brief - Solicita una cadena de caracteres al usuario, luego de verificarlo devuelve el resultado
  * \param - pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
  * \param - mensaje Es el mensaje a ser mostrado
