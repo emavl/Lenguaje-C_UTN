@@ -37,7 +37,8 @@ int main(void) {
 	char sexo;
 	 int nota;
 	 int edad;
-//	 int promedioFem;
+	 int promedioFem ;
+	 int notasFem = 0;
 	 int accNotas = 0;
 	 int i = 1;
 
@@ -68,10 +69,10 @@ int main(void) {
 			fflush(stdin);
 			scanf("%c",&tipoDeCursada[i]);
 		}
-//---------------------- M a t e r i a s -----------------------------
+//---------------------- M a t e r i a s ----------------------------- listo
 
 		printf("\nIngrese la cantidad de materias: ");
-//		fflush(stdin);
+		fflush(stdin);
 		scanf("%d",&materia);
 		while ( ((materia < 0) || (materia > 9)) &&
 			  (( materia < '0') || (materia > '9')) ) {
@@ -79,7 +80,7 @@ int main(void) {
 			fflush(stdin);
 			scanf("%d",&materia);
 		}
-//------------------------ A l u m n o  ----------------------------
+//------------------------ S e x o  -  A l u m n o  ---------------------------- Listo
 
 		printf("\nIngrese el sexo del Alumno: ");
 		printf("\n- F: femenino  \n– M: masculino  \n- O: no binario ");
@@ -95,29 +96,30 @@ int main(void) {
 
 		printf("\nIngrese la nota entre 0 y 10: ");
 		scanf("%d",&nota);
-		while ( ((nota < 0) && (nota > 11)) &&
-			  (( nota < '0') || ( nota > '9')) ) {
+		while ( ((nota < 0) || (nota > 11) ) && (( nota < '0') || ( nota > '9')) ){
 			printf("\nError !!! reingrese la nota: ");
+			fflush(stdin);
 			scanf("%d",&nota);
 		}
 //------------------------- E d a d  ---------------------------------
 
 		printf("\nIngrese la edad del Alumno: ");
 		scanf("%d",&edad);
-		while((edad > 0) && (edad < 101)){
+		while((edad < 0) && (edad < 101)){
 			printf("\nError - Reingrese la edad del Alumno: ");
 			scanf("%d",&edad);
 		}
-		i++;
+	 i++;
 	 }while( i < max);
 
-	if (sexo == 'f') {
-		accNotas += nota;
-		printf("suma notas %d", accNotas);
-	}
+		if (sexo == 'F') {
+			accNotas += nota;
+			notasFem++;
+		}
 
+promedioFem = accNotas/notasFem;
 
-
+printf("El promedio %d",promedioFem);
 
 	return EXIT_SUCCESS;
 }
