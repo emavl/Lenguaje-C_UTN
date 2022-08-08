@@ -4,7 +4,10 @@
  *  Created on: 21 jul. 2022
  *      Author: Emaaaaaaa !!!!
  */
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
 #ifndef FUNCIONES_H_
 #define FUNCIONES_H_
 /**
@@ -12,7 +15,7 @@
  * @param list - Array
  * @param size - Tamaño
  */
-void initArray(int list [], int size);
+void initArray(int list[], int size);
 /**
  *
  * @param list - array.
@@ -31,6 +34,6 @@ int getNumber(char mensaje[], char mensajeError[]);
  * @param list - Array.
  * @return - retorna el valor mayor.
  */
-int mayorNumero(int list[]);
+void mayorNumero(int list[],int* numero);
 
 #endif /* FUNCIONES_H_ */

@@ -19,11 +19,11 @@ int main(void){
 	setbuf(stdout,NULL);
 
 	int aNumeros[size];
-	int numero = 0;
+	int numero;
 
 	initArray(aNumeros,size);
 	cargarArray(aNumeros, size);
-	numero = mayorNumero(aNumeros);
+	mayorNumero(aNumeros,&numero);
 	printf("\nEl mayor numero es %d", numero);
 
 	return 0;
