@@ -1,6 +1,7 @@
-#include "funciones.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
 
 //------------------------------------------
 
@@ -12,7 +13,7 @@ void initArray(int list [], int size) {
 
 //------------------------------------------
 
-int getNumber(char mensaje[], char mensajeError[]) {
+int getNumber(char mensaje[], char mensajeError[]){
 	int numero;
 	printf("%s", mensaje);
 	scanf("%d", &numero);
@@ -26,8 +27,8 @@ int getNumber(char mensaje[], char mensajeError[]) {
 //------------------------------------------
 
 void cargarArray(int list[], int size){
-    int i;
-    for (i = 0; i < size; i++){
+
+    for (int i = 0; i < size; i++){
       list[i] = getNumber("\nIngrese un numero por favor: ",
 		      "Error! ingrese numero valido");
     }
@@ -35,12 +36,13 @@ void cargarArray(int list[], int size){
 
 //------------------------------------------
 
-int mayorNumero(int list[]) {
-	int numero = 0;
-	for (int i = 0; i < sizeof(list); ++i) {
-		if (list[i] > numero) {
-			numero = list[i];
+void mayorNumero(int array[],int* pnumero) {
+
+	if (pnumero != NULL && array != NULL) {
+		for (int i = 0; i < sizeof(array); ++i) {
+			if (array[i] > *pnumero) {
+				*pnumero = array[i];
+			}
 		}
 	}
-	return numero;
 }
