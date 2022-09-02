@@ -44,11 +44,11 @@ int main(void) {
 //   calculos - contadotres - promedios
 
 	int mejorNota = 0;
-//	int legajoNota;
-//	int legajoJoven;
+	int legajoNota;
+	int legajoJoven;
 	int joven = 0;
 	int mayorMat = 0;
-//	int legajoCursada;
+	int legajoCursada;
 	int promedioFem;
 	int promedioMasc;
 	int promedioBin;
@@ -75,12 +75,12 @@ int main(void) {
 
 //---------------------- C u r s a d a -------------------------------- listo
 
-		printf("\nIngrese el tipo de cursada: ");
-		printf("\n- L: libre \n- P: presencial \n– R: remota\n");
 		fflush(stdin);
+		printf("\nIngrese el tipo de cursada: ");
+		printf("\n- l: libre \n- p: presencial \n– r: remota\n");
 		scanf("%c",&tipoDeCursada);
 
-		while(!(isdigit(tipoDeCursada) == 0) || ( tipoDeCursada != 'L' && tipoDeCursada != 'P' && tipoDeCursada != 'R')){
+		while(!(isdigit(tipoDeCursada) == 0) || ( tipoDeCursada != 'l' && tipoDeCursada != 'p' && tipoDeCursada != 'r')){
 			printf("\nError ! Ingrese el tipo de cursada correcta: \n");
 			printf("\n- L: libre \n- P: presencial \n– R: remota\n");
 			fflush(stdin);
@@ -90,7 +90,6 @@ int main(void) {
 //---------------------- M a t e r i a s ----------------------------- listo
 
 		printf("\nIngrese la cantidad de materias: ");
-		fflush(stdin);
 		scanf("%d",&materia);
 
 		while ( ((materia < 0) || (materia > 9)) &&
@@ -99,21 +98,6 @@ int main(void) {
 			printf("\nERROR !! deben de ser mayor a 0 y menor a 9: ");
 			scanf("%d", &materia);
 		}
-
-//------------------------ S e x o  -  A l u m n o  ---------------------------- Listo
-
-		printf("\nIngrese el sexo del Alumno: ");
-		printf("\n- F: femenino  \n– M: masculino  \n- O: no binario ");
-		fflush(stdin);
-		scanf("%c",&sexo);
-
-		while((sexo != 'F') && (sexo != 'M') && (sexo != 'O')){
-			fflush(stdin);
-			printf("\nError !! - Ingrese el sexo correcto: ");
-			printf("\n- F: femenino  \n– M: masculino  \n- O: no binario ");
-			scanf("%c", &sexo);
-			}
-
 //------------------------- N o t a ---------------------------------
 
 		printf("\nIngrese la nota entre 0 y 10: ");
@@ -123,22 +107,37 @@ int main(void) {
 			printf("\nError !!! reingrese la nota: ");
 			scanf("%d", &nota);
 		}
-		if (sexo == 'F') {
+
+//------------------------ S e x o  -  A l u m n o  ---------------------------- Listo
+
+		fflush(stdin);
+		printf("\nIngrese el sexo del Alumno: ");
+		printf("\n- f: femenino  \n– m: masculino  \n- o: no binario ");
+		scanf("%c",&sexo);
+		while((sexo != 'f') && (sexo != 'm') && (sexo != 'o')){
+			fflush(stdin);
+			printf("\nError !! - Ingrese el sexo correcto: ");
+			printf("\n- F: femenino  \n– M: masculino  \n- O: no binario ");
+			scanf("%c", &sexo);
+			}
+
+
+		if (sexo == 'f') {
 			if (nota > mejorNota) {
 				mejorNota = nota;
 				legajoNota = legajo;
 			}
 		}
 		switch(sexo){
-			case 'F':
+			case 'f':
 				accFem += nota;
 				notasFem++;
 				break;
-			case 'M':
+			case 'm':
 				accMas += nota;
 				notasMasc++;
 				break;
-			case 'O':
+			case 'o':
 				accBin += nota;
 				notasBin++;
 				break;
