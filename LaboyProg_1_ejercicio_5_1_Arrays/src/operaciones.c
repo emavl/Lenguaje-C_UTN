@@ -1,8 +1,11 @@
+/*
+ * funciones.c
+ *
+ *
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include "funciones.h"
-
-//------------------------------------------
 
 void initArray(int list [], int size) {
 	for (int i = 0; i < size; ++i) {
@@ -15,15 +18,24 @@ void initArray(int list [], int size) {
 void cargarArray(int list[], int size){
 
     for (int i = 0; i < size; i++){
-    		printf("\nIngrese un numero ");
+    		printf("Ingrese un numero ");
 			scanf("%d",&list[i]);
     }
+}
+
+int sumatoria(int list[], int size){
+
+	int sumatoria = 0;
+	for(int i = 0; i < size; i++) {
+		sumatoria +=list[i];
+	}
+	return sumatoria;
 }
 
 //------------------------------------------
 
 void mostrarArray(int lista[],int size){
-	for (int i = 5; i < size; i--) {
-		printf("Los nuemeros son %d ",lista[i]);
+	for (int i = 4; i > -1; i--) {
+		printf("\nLos nuemeros son %d ", lista[i]);
 	}
 }
