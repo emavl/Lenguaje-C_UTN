@@ -67,7 +67,7 @@ int main(void) {
 
 		printf("\nIngrese el N° de legajo por favor: ");
 		scanf("%d",&legajo);
-		while ( ((legajo < 0) || (legajo > 100) ) && (( legajo < '0') || ( legajo > '9')) ){
+		while ( ((legajo < 0) || (legajo > 100) ) ){
 			fflush(stdin);
 			printf("\nError !!! reingrese el legajo: ");
 			scanf("%d", &legajo);

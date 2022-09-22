@@ -1,0 +1,43 @@
+!SESSION 2022-09-18 13:55:57.658 -----------------------------------------------
+eclipse.buildId=4.25.0.I20220831-1800
+java.version=18.0.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=es_AR
+Framework arguments:  -product org.eclipse.epp.package.cpp.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.cpp.product
+
+!ENTRY org.eclipse.osgi 4 0 2022-09-18 13:56:08.904
+!MESSAGE Application error
+!STACK 1
+java.lang.LinkageError: loader constraint violation: loader org.eclipse.osgi.internal.loader.EquinoxClassLoader @4a49919c wants to load abstract class org.eclipse.e4.core.contexts.ContextFunction. A different abstract class with the same name was previously loaded by org.eclipse.osgi.internal.loader.EquinoxClassLoader @1fd577a3. (org.eclipse.e4.core.contexts.ContextFunction is in unnamed module of loader org.eclipse.osgi.internal.loader.EquinoxClassLoader @1fd577a3, parent loader 'platform')
+	at org.eclipse.e4.core.commands.internal.HandlerServiceImpl.getHandler(HandlerServiceImpl.java:65)
+	at org.eclipse.ui.internal.commands.CommandPersistence.readCommandsFromRegistry(CommandPersistence.java:196)
+	at org.eclipse.ui.internal.commands.CommandPersistence.reRead(CommandPersistence.java:461)
+	at org.eclipse.ui.internal.CommandToModelProcessor.process(CommandToModelProcessor.java:71)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invokeUsingClass(InjectorImpl.java:317)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.invoke(InjectorImpl.java:251)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.invoke(ContextInjectionFactory.java:173)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.runProcessor(ModelAssembler.java:715)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.runProcessors(ModelAssembler.java:649)
+	at org.eclipse.e4.ui.internal.workbench.ModelAssembler.processModel(ModelAssembler.java:322)
+	at org.eclipse.e4.ui.internal.workbench.ResourceHandler.loadMostRecentModel(ResourceHandler.java:199)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application.loadApplicationModel(E4Application.java:371)
+	at org.eclipse.e4.ui.internal.workbench.swt.E4Application.createE4Workbench(E4Application.java:247)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:572)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:550)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:171)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:577)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:596)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1467)
