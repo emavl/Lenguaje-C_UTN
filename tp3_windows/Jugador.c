@@ -10,7 +10,8 @@
 #include "Controller.h"
 #include "Jugador.h"
 #include "parser.h"
-
+#define TRUE 1
+#define False 1
 void jug_delete(Jugador* this){
 	if ( this != NULL) {
 		free(this);
@@ -38,6 +39,8 @@ Jugador* jug_newParametros(char *idStr, char *nombreCompletoStr, char *edadStr,
 			jug_setPosicion(pJugadores, posicionStr);
 			jug_setNacionalidad(pJugadores, nombreCompletoStr);
 			jug_setIdSeleccion(pJugadores, atoi(idSelccionStr));
+		} else {
+			printf("Error ! !  - pJugadors es = a NULL");
 		}
 	}
 	return pJugadores;

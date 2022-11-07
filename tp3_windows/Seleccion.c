@@ -22,7 +22,7 @@ Seleccion* selec_new() {
 }
 Seleccion* selec_newParametros(char *idStr, char *paisStr,
 		char *confederacionStr, char *convocadosStr) {
-
+	int id;
 	Seleccion* pSeleccion;
 
 	if( idStr != NULL && paisStr != NULL && confederacionStr != NULL &&
@@ -32,6 +32,11 @@ Seleccion* selec_newParametros(char *idStr, char *paisStr,
 
 		if ( pSeleccion != NULL) {
 			selec_setConvocados(pSeleccion, atoi(convocadosStr));
+			if( (id = atoi(idStr)) > 0 ) pSeleccion ->id;
+			if (paisStr != NULL) strcpy(pSeleccion->pais,paisStr);
+			if ( confederacionStr != NULL ) strcpy(pSeleccion->confederacion,confederacionStr);
+		} else {
+			printf("Error ! !  - pSeleccion es = a NULL");
 		}
 	}
 	return pSeleccion;

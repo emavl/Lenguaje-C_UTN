@@ -152,9 +152,20 @@ int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJu
  * \return int
  *
  */
-int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSeleccion)
-{
-    return 1;
+int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSeleccion) {
+	int retorno = -1,  validarParseo = 0;
+	FILE* pFIle;
+
+	pFIle = fopen(path, "r");
+
+	if (pFIle != NULL) {
+		validarParseo = parser_SeleccionFromText(pFIle, pArrayListSeleccion);
+	} else {
+		printf("Error al abrir el archivo\n");
+	}
+		fclose(pFIle);
+
+	return retorno;
 }
 
 /** \brief Modificar datos de empleado
