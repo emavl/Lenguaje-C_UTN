@@ -30,7 +30,11 @@ void ejecutarMenu(int *opcion) {
 								 "4. Baja de jugador\n"
 	    						 "5. Listados\n"
 								 "6. Convocar Jugadores\n"
-								 "7. Salir\n"
+								 "7. Ordenar y listar.\n"
+								 "8. Generar archivo Binario.\n"
+								 "9. Cargar archivo binario.\n"
+								"10. Guardar archivos .CSV\n"
+								"11. Salir\n"
 								 "-------------------------------------\n"
 								 "Ingrese una opcion: ",
 								 "-------------------------------------\n"
@@ -40,7 +44,10 @@ void ejecutarMenu(int *opcion) {
 								 "4. Baja de jugador\n"
 								 "5. Listados\n"
 								 "6. Convocar Jugadores\n"
-								 "7. Salir\n"
+								 "8. Generar archivo Binario.\n"
+								 "9. Cargar archivo binario.\n"
+								"10. Guardar archivos .CSV\n"
+								"11. Salir\n"
 								 "-------------------------------------\n"
 								 "Opcion invalida, reingrese: ", 1, 7);
 
@@ -56,31 +63,72 @@ void menuModificar(char letra) {
 							"\nd) Nacionalidad\n"
 							"\ne) volver atras\n"
 							 "-------------------------------------\n"
-							 "Ingrese una opcion: ",
+							 "Ingrese una opcion: "
+							 "-------------------------------------\n",
+							 "-------------------------------------\n"
+							 "Opcion invalida, reingrese:  "
 							 "-------------------------------------\n"
 							"\na) Nombre\n"
 							"\nb) Edad\n"
 							"\nc) Posicion\n"
 							"\nd) Nacionalidad\n"
-							"\ne) volver atras\n"
-							 "-------------------------------------\n"
-							 "Opcion invalida, reingrese:  ", 'a', 'e', 3);
+							"\ne) volver atras\n", 'a', 'e', 3);
+
 }
-char menuListar(char letra) {
+int menuListar(int* opcion) {
 
-	utn_getCaracter(&letra, "-------------------------------------\n"
-							"\na) Todos los Jugadores.\n"
-							"\nb) Todas las selecciones."
-							"\nc) Jugadores convocados ( unicamente )"
-							"\nd) volver atras\n"
-							 "-------------------------------------\n"
-							 "Ingrese una opcion: ", "-------------------------------------\n"
-							"\na) Todos los Jugadores.\n"
-							"\nb) Todas las selecciones."
-							"\nc) Jugadores convocados ( unicamente )"
-							"\nd) volver atras\n"
-							 "-------------------------------------\n"
-							 "Opcion invalida, reingrese:  ", 'a', 'b', 5);
+	pedirEntero(opcion, "-------------------------------------\n"
+						"\n1) Todos los Jugadores"
+						"\n2) Todas las selecciones."
+						"\n3) Jugadores convocados ( unicamente )"
+						"\n4) volver atras\n"
+						 "-------------------------------------\n"
+						 "Ingrese una opcion: ",
+						 "-------------------------------------\n"
+						 "Opcion invalida, reingrese\n\n  "
+						"\n1) Todos los Jugadores."
+						"\n2) Todas las selecciones."
+						"\n3) Jugadores convocados ( unicamente )"
+						"\n4) volver atras\n"
+						 "-------------------------------------\n", 1, 4);
+	return 0;
+}
 
-	return letra;
+int menuOrdenar(int* opcion) {
+
+	pedirEntero(opcion, "-------------------------------------\n"
+									 "Menu de Ordenamiento:\n\n"
+									 "1) Jug por nacionalidad.\n"
+									 "2) seleccion por confederacion.\n"
+									 "3) jugador por edad.\n"
+									 "4) jugador por Nombre.\n"
+									 "5) volver atras\n"
+									 "-------------------------------------\n"
+									 "Ingrese una opcion: ",
+									 "-------------------------------------\n"
+									 "1) Jug por nacionalidad.\n"
+									 "2) seleccion por confederacion.\n"
+									 "3) jugador por edad.\n"
+									 "4) jugador por Nombre.\n"
+									 "5) volver atras\n"
+									 "-------------------------------------\n"
+									 "Opcion invalida, reingrese: ", 1, 5);
+	return 0;
+}
+int menuCriterio()
+{
+	int opciones;
+
+	pedirEntero(&opciones,  "\n >>>>----------------► Criterio  \n"
+							"0. Listado descendente.\n"
+							"1. Listado ascendente.\n"
+							"-------------------------------------\n"
+							"Ingrese una opcion: ",
+							"-------------------------------------\n"
+							"0. Listado descendente.\n"
+							"1. Listado ascendente.\n"
+							"-------------------------------------\n"
+							"Opcion invalida, reingrese: ", 0, 1);
+
+	return opciones;
 }

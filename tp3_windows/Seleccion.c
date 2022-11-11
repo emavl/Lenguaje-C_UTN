@@ -21,9 +21,9 @@ Seleccion* selec_new() {
 	return pSeleccion;
 }
 Seleccion* selec_newParametros(char *idStr, char *paisStr,
-		char *confederacionStr, char *convocadosStr) {
+	char *confederacionStr, char *convocadosStr) {
 	int id;
-	Seleccion* pSeleccion;
+	Seleccion* pSeleccion = NULL;
 
 	if( idStr != NULL && paisStr != NULL && confederacionStr != NULL &&
 			convocadosStr != NULL  ) {
@@ -31,10 +31,10 @@ Seleccion* selec_newParametros(char *idStr, char *paisStr,
 		pSeleccion = selec_new();
 
 		if ( pSeleccion != NULL) {
+			if ( ( id = atoi(idStr) ) > 0 ) pSeleccion ->id = id;
+			strcpy(pSeleccion->pais,paisStr);
+			strcpy(pSeleccion->confederacion,confederacionStr);
 			selec_setConvocados(pSeleccion, atoi(convocadosStr));
-			if( (id = atoi(idStr)) > 0 ) pSeleccion ->id;
-			if (paisStr != NULL) strcpy(pSeleccion->pais,paisStr);
-			if ( confederacionStr != NULL ) strcpy(pSeleccion->confederacion,confederacionStr);
 		} else {
 			printf("Error ! !  - pSeleccion es = a NULL");
 		}
@@ -50,6 +50,7 @@ int selec_getId(Seleccion* this, int* id) {
 	}
 	return retorno;
 }
+
 int selec_getPais(Seleccion* this, char* pais) {
 	int retorno = -1;
 	if ( this != NULL && pais != NULL) {
@@ -68,7 +69,7 @@ int selec_getConfederacion(Seleccion* this, char* confederacion) {
 }
 int selec_getConvocados(Seleccion* this, int* convocados) {
 	int retorno = -1;
-	if ( this != NULL && convocados > 0) {
+	if ( this != NULL && convocados >= 0) {
 		*convocados = this ->convocados;
 		retorno = 0;
 	}
@@ -78,9 +79,30 @@ int selec_getConvocados(Seleccion* this, int* convocados) {
 
 int selec_setConvocados(Seleccion* this, int convocados) {
 	int retorno = -1;
-	if ( this != NULL && convocados > 0) {
+	if ( this != NULL && convocados >= 0) {
 		 this ->convocados = convocados;
 		retorno = 0;
 	}
 	return retorno;
 }
+
+//─────────────────  P r i n t ───────────────────►
+
+void Seleccion_print(Seleccion* this){
+
+	char pais[25], confederacion[25];
+	int id, convocados;
+
+	if ( this != NULL) {
+			selec_getId(this, &id);
+			selec_getPais(this, pais);
+			selec_getConfederacion(this, confederacion);
+			selec_getConvocados(this, &convocados);
+			printf("%5d |%20s |%20s |%4d\n",id,pais,confederacion,convocados);
+		} else {
+			printf("\nla memoria esta llena ");
+		}
+
+}
+
+

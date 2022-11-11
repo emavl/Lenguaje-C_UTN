@@ -8,13 +8,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include "inputs.h"
 
 int verificarConfirmacion(char* mensaje)
 {
 	int retorno = -1;
 	char respuesta;
 
-	pedirCaracter(&respuesta, *mensaje);
+	pedirCaracter(&respuesta, mensaje);
 	if(respuesta == 's' || respuesta == 'S')
 	{
 		retorno = 0;
@@ -22,31 +23,78 @@ int verificarConfirmacion(char* mensaje)
 	return retorno;
 }
 
-int pedirEntero(int* entero, char* mensaje, char* mensajeError, int min, int max)
+//◄─────────────────  C H A T  ───────────────────────►
+int utn_getChar ( char* pResultado, char* mensaje, char* mensajeError, int reintentos)
 {
-	int retorno = -1;
-	int numeroIngresado;
-
-	if(entero != NULL && mensaje != NULL && mensajeError != NULL && min < max)
+	char aux[256];
+	int retorno = 0;
+	if(pResultado != NULL)
 	{
-		printf("%s", mensaje);
-		fflush(stdin);
-		scanf("%d", &numeroIngresado);
-
-		while(numeroIngresado < min || numeroIngresado > max)
+		while(reintentos > 0)
 		{
-			printf("%s", mensajeError);
-			fflush(stdin);
-			scanf("%d", &numeroIngresado);
+			reintentos--;
+			printf ( "%s" ,mensaje);
+			if(getChar(aux)==1)
+			{
+				strcpy(pResultado,aux);
+				retorno = 1;
+				break;
+			}
+			printf("%s",mensajeError);
 		}
-
-		*entero = numeroIngresado;
-		retorno = 0;
+		if(reintentos < 1)
+		{
+			retorno= 0;
+		}
 	}
-
+	SizeString(pResultado);
 	return retorno;
 }
+int getChar ( char * pResultado)
+{
+	int retorno = 0;
+	char buffer[256];
+	if (pResultado != NULL)
+	{
+		if (myGets(buffer, sizeof(buffer)) == 0 && esNumericaChar(buffer) == 1) {
+			strcpy(pResultado, buffer);
+			retorno = 1;
+		}
+	}
+	return retorno;
 
+}
+int myGets(char *cadena, int longitud) {
+	if (cadena != NULL && longitud > 0
+			&& fgets(cadena, longitud, stdin) == cadena) {
+		fflush(stdin);
+		if (cadena[strlen(cadena) - 1] == '\n') {
+			cadena[strlen(cadena) - 1] = '\0';
+		}
+		return 0;
+	}
+	return -1;
+}
+int esNumericaChar(char *cadena) {
+	int retorno;
+	int i = 0;
+
+	if (cadena != NULL && strlen(cadena) > 0) {
+		retorno = 1;
+		while (cadena[i] != '\0') {
+			if (cadena[i] >= '0' && cadena[i] <= '9') {
+				retorno = 0;
+				break;
+			}
+			i++;
+		}
+
+	} else {
+		retorno = 0;
+	}
+	return retorno;
+
+}
 int pedirCadena(char* cadena, char* mensaje, char* mensajeError, int max)
 {
 	int retorno = -1;
@@ -74,7 +122,6 @@ int pedirCadena(char* cadena, char* mensaje, char* mensajeError, int max)
 
 	return retorno;
 }
-
 int pedirCaracter(char *caracter, char *mensaje) {
 	int retorno = -1;
 
@@ -87,7 +134,6 @@ int pedirCaracter(char *caracter, char *mensaje) {
 
 	return retorno;
 }
-
 int isChar(char string[]) {
 	int isOk = 0;
 	int stringTam = strlen(string);
@@ -105,7 +151,6 @@ int isChar(char string[]) {
 
 	return isOk;
 }
-
 int getString(char input[], int tam)
 {
     char auxString[tam];
@@ -145,7 +190,6 @@ int SizeString(char string[]) {
 	}
 	return isOk;
 }
-
 int utn_getString(char input[], char mensaje[], char mensajeError[], int tam,
 		int reintentos) {
 	int isOk = 1;
@@ -168,7 +212,6 @@ int utn_getString(char input[], char mensaje[], char mensajeError[], int tam,
 	}
 	return isOk;
 }
-
 int utn_getCaracter(char *resultado, char *mensaje, char *mensajeError,
 		char minimo, char maximo, int reintentos) {
 	int retorno = -1;
@@ -195,6 +238,63 @@ int utn_getCaracter(char *resultado, char *mensaje, char *mensajeError,
 	return retorno;
 }
 //-----------------------------------INT-----------------------------------
+
+
+int esNumerico(char str[]) {
+	int i = 0;
+	while (str[i] != '\0') {
+		if (str[i] < '0' || str[i] > '9')
+			return 0;
+		i++;
+	}
+	return 1;
+}
+
+int getStringNumeros(char mensaje[], char input[]) {
+	char aux[256];
+
+    printf("%s",mensaje);
+    fflush(stdin);
+    scanf ("%[^\n]", aux);;
+	if (esNumerico(aux)) {
+		strcpy(input, aux);
+		return 1;
+	}
+	return 0;
+}
+
+
+
+int getValidInt(char requestMessage[], char errorMessage[], int lowLimit,
+		int hiLimit) {
+	char auxStr[256];
+	int auxInt;
+	while (1) {
+		if (!getStringNumeros(requestMessage, auxStr)) {
+			printf("%s\n", errorMessage);
+			fflush(stdin);
+			continue;
+
+		}
+		auxInt = atoi(auxStr);
+		if (auxInt < lowLimit || auxInt > hiLimit) {
+			printf(
+					"El numero del debe ser mayor o igual  a %d y menor o igual a %d\n",
+					lowLimit, hiLimit);
+			continue;
+
+		}
+		return auxInt;
+
+	}
+
+}
+
+
+
+
+
+
 int isInt(char input[])
 {
     int isOk = 0;
@@ -225,30 +325,54 @@ int getInt(int* input)
     return isOk;
 }
 
-int utn_getInt(short *input, char mensaje[], char mensajeError[], int min,
-		int max, int reintentos) {
-	int isOk = -1;
-	int auxInt;
-
-	if (mensaje != NULL && mensajeError != NULL
-			&& min <= max&& reintentos >= 0 && input != NULL) {
-		do {
-			reintentos--;
-			printf("%s", mensaje);
-			fflush(stdin);
-			if (!(getInt(&auxInt)) && auxInt >= min && auxInt <= max) {
-				fflush(stdin);
-				*input = auxInt;
-				isOk = 0;
-				break;
-			} else {
-				printf("%s ", mensajeError);
-			}
-		} while (reintentos >= 0);
-	}
-	return isOk;
-}
+//int utn_getInt(short *input, char mensaje[], char mensajeError[], int min,
+//		int max, int reintentos) {
+//	int isOk = -1;
+//	int auxInt;
+//
+//	if (mensaje != NULL && mensajeError != NULL
+//			&& min <= max&& reintentos >= 0 && input != NULL) {
+//		do {
+//			reintentos--;
+//			printf("%s", mensaje);
+//			fflush(stdin);
+//			if (!(getInt(&auxInt)) && auxInt >= min && auxInt <= max) {
+//				fflush(stdin);
+//				*input = auxInt;
+//				isOk = 0;
+//				break;
+//			} else {
+//				printf("%s ", mensajeError);
+//			}
+//		} while (reintentos >= 0);
+//	}
+//	return isOk;
+//}
 //-----------------------------------FLOAT-----------------------------------
+int pedirEntero(int* entero, char* mensaje, char* mensajeError, int min, int max)
+{
+	int retorno = -1;
+	int numeroIngresado;
+
+	if(entero != NULL && mensaje != NULL && mensajeError != NULL && min < max)
+	{
+		printf("%s", mensaje);
+		fflush(stdin);
+		scanf("%d", &numeroIngresado);
+
+		while(numeroIngresado < min || numeroIngresado > max)
+		{
+			printf("%s", mensajeError);
+			fflush(stdin);
+			scanf("%d", &numeroIngresado);
+		}
+
+		*entero = numeroIngresado;
+		retorno = 0;
+	}
+
+	return retorno;
+}
 int isFloat(char input[])
 {
     int isOk = 0;

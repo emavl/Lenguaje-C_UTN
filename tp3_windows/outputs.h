@@ -20,7 +20,7 @@ void menuModificar(char letra);
  * \param letra
  * \return
  */
-char menuListar(char letra);
+int menuListar(int* letra);
 /**
  * \fn void ejecutarMenu(int*)
  * \brief
@@ -28,3 +28,18 @@ char menuListar(char letra);
  * \param opcion
  */
 void ejecutarMenu(int *opcion);
+/**
+ * \fn char menuOrdenar(int*)
+ * \brief
+ *
+ * \param opcion
+ * \return
+ */
+int menuOrdenar(int* opcion);
+/**
+ * \fn int menuCriterio()
+ * \brief
+ *
+ * \return
+ */
+int menuCriterio();

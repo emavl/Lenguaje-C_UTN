@@ -46,6 +46,40 @@ int pedirCaracter(char* caracter, char* mensaje);
 
 //-----------------------------------------------CHAR----------------------------------------------------
 /**
+ * \fn int utn_getChar(char*, char*, char*, int)
+ * \brief
+ *
+ * \param pResultado - valor de tipo cadena que va a ingresar el usuario
+ * \param mensaje - imprime un mensaje
+ * \param mensajeError - imprime un mensaje de error.
+ * \param reintentos
+ * \return
+ */
+int utn_getChar ( char * pResultado, char * mensaje, char * mensajeError, int reintentos);
+/**
+ * \fn int getChar(char*)
+ * \brief utilizo las funciones getchar y es esNumerticaChar
+ * para completar la verificacion.
+ * \param pResultado - Cadena de caracteres a ser analizada
+ * \return retorna 1 si esta OK o 0 si da error.
+ */
+int getChar ( char * pResultado);
+/**
+ * \brief Lee de stdin hasta que encuentra un '\n' o hasta que haya copiado en cadena
+ * un maximo de 'longitud - 1' caracteres.
+ * \param *cadena Puntero al espacio de memoria donde se copiara la cadena obtenida
+ * \param longitud Define el tama�o de cadena
+ * \return Retorna 0 (EXITO) si se obtiene una cadena y -1 (ERROR) si no
+ */
+int myGets(char *cadena, int longitud);
+/**
+ * \fn int esNumericaChar(char*)
+ * \brief Verifica si la cadena ingresada es numerica
+ * \param cadena - Cadena de caracteres a ser analizada
+ * \return Retorna 1 (vardadero) si la cadena es numerica y 0 (falso) si no lo es
+ */
+int esNumericaChar(char *cadena);
+/**
  * @fn int isChar(char[])
  * @brief verifica si la cadena es de tipo texto
  *
@@ -97,6 +131,35 @@ int utn_getString(char input[], char mensaje[], char mensajeError[], int tam, in
 int utn_getCaracter(char *resultado, char *mensaje, char *mensajeError,
 		char minimo, char maximo, int reintentos);
 //-----------------------------------------------INT-----------------------------------------------------
+/**
+ * \fn int esNumerico(char[])
+ * \brief
+ *
+ * \param str
+ * \return
+ */
+int esNumerico(char str[]);
+/**
+ * \fn int getStringNumeros(char[], char[])
+ * \brief
+ *
+ * \param mensaje
+ * \param input
+ * \return
+ */
+int getStringNumeros(char mensaje[], char input[]) ;
+/**
+ * \fn int getValidInt(char[], char[], int, int)
+ * \brief
+ *
+ * \param requestMessage
+ * \param errorMessage
+ * \param lowLimit
+ * \param hiLimit
+ * \return
+ */
+int getValidInt(char requestMessage[], char errorMessage[], int lowLimit,
+		int hiLimit);
 /**
  * @fn int isInt(char[])
  * @brief  revisa si la cadena tiene incluido numeros

@@ -27,6 +27,8 @@ int selec_getConfederacion(Seleccion* this,char* confederacion);
 int selec_setConvocados(Seleccion* this,int convocados);
 int selec_getConvocados(Seleccion* this,int* convocados);
 
+void Seleccion_print(Seleccion* this);
+
 
 
 #endif // selec_H_INCLUDED
