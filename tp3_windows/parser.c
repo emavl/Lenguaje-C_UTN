@@ -14,7 +14,7 @@
  * \return int
  */
 int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador) {
-	int retorno = -1, cantidad = 0;
+	int retorno = 0, cantidad = 0;
 	char id[10], nombreComp[25], edad[10] ,posicion[25],
 	nacionalidad[50],	idSeleccion[10];
 	Jugador* auxJugador = NULL;
@@ -32,7 +32,7 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador) {
 
 			if(auxJugador != NULL) {
 				ll_add(pArrayListJugador, auxJugador);
-				retorno = 0;
+				retorno = 1;
 			}
 		}
 
@@ -87,7 +87,7 @@ int parser_JugadorFromBinary(FILE* pFile , LinkedList* pArrayListJugador){
  *
  */
 int parser_SeleccionFromText(FILE* pFile , LinkedList* pArrayListSeleccion){
-	int retorno = -1, cantidad = 0;
+	int retorno = 0, cantidad = 0;
 	char  id[10], convocados[10], pais[25], confederacion[25];
 
 	Seleccion* auxSeleccion = NULL;
@@ -105,7 +105,7 @@ int parser_SeleccionFromText(FILE* pFile , LinkedList* pArrayListSeleccion){
 			auxSeleccion = selec_newParametros(id, pais, confederacion, convocados);
 			if(auxSeleccion != NULL) {
 				ll_add(pArrayListSeleccion, auxSeleccion);
-				retorno = 0;
+				retorno = 1;
 			}
 		  }
 

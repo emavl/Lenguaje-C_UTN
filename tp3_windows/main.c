@@ -9,37 +9,24 @@
 
 /****************************************************
     Menu:
-	 1. Cargar archivos
-	 2. Alta jugador
-	 3. Modificacion de jugador
-	 4. Baja de jugador
-	 5. Listados
-	 	 Menu:
-	 	 a) Todos los jugadores
-	 	 b) Todas las selecciones
-	 	 c) Jugadores convocados( unicamente )
-	 6. Convocar Jugadores
-		Menu:
-		a) Convocar:
-		b) Quitar de la Seleccion:
-	 7. Ordenar y listar.
-	 	 Menu:
-	 	 1)Jug por nacionalidad.
-	 	 2)seleccion por confederacion.
-	 	 3)jugador por edad.
-	 	 4)jugador por Nombre.
-	 8. Generar archivo Binario.
-	 9. Cargar archivo binario.
-	10. Guardar archivos .CSV
+	 1. Cargar archivos  ──────► completo
+	 2. Alta jugador  ──────► completo
+	 3. Modificacion de jugador ──────► completo
+	 4. Baja de jugador ──────► completo
+	 5. Listados ──────► completo
+	 6. Convocar Jugadores  ──────► completo
+	 7. Ordenar y listar. ──────► completo
+	 8. Generar archivo Binario. ──────► completo
+	 9. Cargar archivo binario. ──────► completo
+	10. Guardar archivos .CSV. ──────► completo
 	11. Salir.
 *****************************************************/
 
 int main()
 {
 	setbuf(stdout,NULL);
-    int opcion = 0;
-//    int cantidad;
-//    FILE* archivo;
+    int opcion = 0, id = 371;
+    FILE* archivo = NULL;
     LinkedList* listaJugadores = ll_newLinkedList();
     LinkedList* listaSeleccion = ll_newLinkedList();
 
@@ -47,9 +34,16 @@ int main()
     	switch( opcion ){
     		case 1:
     			if ( ll_isEmpty(listaJugadores) == 1 ) {
-					controller_cargarJugadoresDesdeTexto("jugadores.csv",listaJugadores );
-					controller_cargarSeleccionesDesdeTexto("selecciones.csv", listaSeleccion );
-					printf("\n\nSe cargaron los datos correctamente  \\(^.^)/ .\n");
+    				archivo = fopen("idJugador.txt", "w");
+    				fprintf(archivo,"%d",id);
+    				fclose(archivo);
+
+					if ( (controller_cargarJugadoresDesdeTexto("jugadores.csv",listaJugadores ) == 1) &&
+					(controller_cargarSeleccionesDesdeTexto("selecciones.csv", listaSeleccion ) == 1) )
+					{
+						printf("\n\nSe cargaron los datos correctamente  \\(^.^)/ .\n");
+					}
+
 					limpiarConsola();
     			} else {
     				printf("\nHubo un error al abrir el archivo.\n");
@@ -57,61 +51,89 @@ int main()
     			system("pause");
 
     		break;
-    		case 2:// ──────────►  ALTA
-    			controller_agregarJugador(listaJugadores);
+    		case 2:// ──────────►  Alta
+    			if ( ll_isEmpty(listaJugadores) == 1 ){
+    				printf("\nDebe cargar los archivos primero\n");
+    				system("pause");
+    			} else {
+    				if ( controller_agregarJugador(listaJugadores) == 1){
+    				printf("Se ha dado de alta correctamente");
+    				}
+    			}
     		break;
     		case 3:// ──────────►  Modificacion de jugador
-
+    			if ( ll_isEmpty(listaJugadores) == 1 ){
+    				printf("\nDebe cargar los archivos primero\n");
+    				system("pause");
+    			} else {
+    				controller_editarJugador(listaJugadores);
+    			}
     		break;
-    		case 4:// ──────────►  ALTA
-
+    		case 4:// ──────────►  Baja de jugador
+    			if ( ll_isEmpty(listaJugadores) == 1 ){
+					printf("\nDebe cargar los archivos primero\n");
+					system("pause");
+				} else {
+    			controller_removerJugador(listaJugadores);
+				}
     		break;
-    		case 5:// ──────────►  ALTA
+    		case 5:// ──────────►  Listados
+    			if ( ll_isEmpty(listaJugadores) == 1 ){
+					printf("\nDebe cargar los archivos primero\n");
+					system("pause");
+				} else {
     			controller_listar(listaSeleccion, listaJugadores);
+				}
     		break;
-    		case 6:// ──────────►  ALTA
-
+    		case 6:// ──────────►  Convocar Jugadores
+    			if ( ll_isEmpty(listaJugadores) == 1 ){
+					printf("\nDebe cargar los archivos primero\n");
+					system("pause");
+				} else {
+					controller_convocados(listaJugadores, listaSeleccion);
+				}
     		break;
-    		case 7:// ──────────►  ALTA
-    			controller_ordenarJugadores(listaJugadores);
+    		case 7:// ──────────►  Ordenar y listar.
+    			if ( ll_isEmpty(listaJugadores) == 1 ){
+					printf("\nDebe cargar los archivos primero\n");
+					system("pause");
+				} else {
+    			controller_Ordenamiento(listaJugadores, listaSeleccion);
+				}
     		break;
-    		case 8:// ──────────►  ALTA
-
+    		case 8:// ──────────►  Generar archivo Binario.
+    			if ( ll_isEmpty(listaJugadores) == 1 ){
+					printf("\nDebe cargar los archivos primero\n");
+					system("pause");
+				} else {
+					controller_guardarJugadoresModoBinario("archJugador.b", listaJugadores);
+				}
     		break;
-    		case 9:// ──────────►  ALTA
-
+    		case 9:// ──────────►  Cargar archivo binario.
+    			if ( ll_isEmpty(listaJugadores) == 1 ){
+					printf("\nDebe cargar los archivos primero\n");
+					system("pause");
+				} else {
+					controller_cargarArchivoBinario("archJugador.b", listaJugadores);
+				}
     		break;
-    		case 10:// ──────────►  ALTA
-
+    		case 10:// ──────────►  Guardar archivos .CSV
+    			if ( ll_isEmpty(listaJugadores) == 1){
+					printf("\nDebe cargar los archivos primero\n");
+					system("pause");
+				} else {
+					controller_guardarSeleccionesModoTexto("selecciones.csv", listaSeleccion);
+					controller_guardarJugadoresModoTexto("jugadores.csv", listaJugadores);
+				}
     		break;
-    		case 11:// ──────────►  ALTA
-    			printf("\nSaliendo . . ..\n");
+    		case 11:// ──────────►  Salir.
+    			printf("\nSaliendo . . .\n");
     			system("pause");
     		break;
     	}
 
     }while(opcion != 11);
-//
-//	controller_listarJugadores(listaJugadores);
-//	controller_listarSelecciones(listaSeleccion);
 
-    //controller_listarJugadores(listaJugadores);
-//    cantidad = ll_len(listaJugadores);
-//    puts("funciona ok");
-//
-//    printf(" cantidad de jugadores: %d", cantidad);
-//
-//    fclose(archivo);
-//
-//    do{
-//        switch(option)
-//        {
-//            case 1:
-//            	controller_cargarJugadoresDesdeTexto("jugadores.csv",listaJugadores);
-//
-//                break;
-//        }
-//    }while(option != 10);
 
     return 0;
 }

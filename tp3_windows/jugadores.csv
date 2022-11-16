@@ -31,9 +31,9 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSelecion
 30,Lucas Ocampos,26,Extremo izquierdo,Argentino,0
 31,Nicolas Gonzalez ,23,Extremo izquierdo,Argentino,0
 32,Papu Gomez,33,Extremo izquierdo,Argentino,0
-33,angel Correa,26,Extremo derecho,Argentino,0
+33,Angel Correa,26,Extremo derecho,Argentino,0
 34,Emiliano Buendia,24,Extremo derecho,Argentino,0
-35,angel Di Maria ,33,Extremo derecho,Argentino,0
+35,Angel Di Maria ,33,Extremo derecho,Argentino,0
 36,Eduardo Salvio,30,Extremo derecho,Argentino,0
 37,Maximiliano Meza,28,Extremo derecho,Argentino,0
 38,Lionel Messi,34,Mediapunta,Argentino,0
@@ -49,7 +49,7 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSelecion
 48,Ederson,29,Portero,Brasilero,0
 49,Weverton,34,Portero,Brasilero,0
 50,Marquinhos,28,Defensa central,Brasilero,0
-51,eder Militao,24,Defensa central,Brasilero,0
+51,Eder Militao,24,Defensa central,Brasilero,0
 52,Bremer ,25,Defensa central,Brasilero,0
 53,Roger Ibanez,23,Defensa central,Brasilero,0
 54,Thiago Silva,38,Defensa central,Brasilero,0
@@ -60,7 +60,7 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSelecion
 59,Casemiro,30,Pivote,Brasilero,0
 60,Bruno Guimaraes,24,Pivote,Brasilero,0
 61,Fred,29,Mediocentro,Brasilero,0
-62,everton Ribeiro,33,Mediocentro,Brasilero,0
+62,Everton Ribeiro,33,Mediocentro,Brasilero,0
 63,Lucas Paqueta,25,Mediocentro ofensivo,Brasilero,0
 64,Vinicius Junior,22,Extremo izquierdo,Brasilero,0
 65,Neymar ,30,Extremo izquierdo,Brasilero,0
@@ -214,8 +214,8 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSelecion
 213,Edson alvarez,25,Pivote,Mexicano,0
 214,Luis Chavez,26,Pivote,Mexicano,0
 215,Carlos Rodriguez,25,Mediocentro,Mexicano,0
-216,erick Sanchez,23,Mediocentro,Mexicano,0
-217,erick Gutierrez,27,Mediocentro,Mexicano,0
+216,Erick Sanchez,23,Mediocentro,Mexicano,0
+217,Erick Gutierrez,27,Mediocentro,Mexicano,0
 218,Luis Romo,27,Mediocentro,Mexicano,0
 219,Fernando Beltran,24,Mediocentro,Mexicano,0
 220,Orbelin Pineda,26,Mediocentro,Mexicano,0

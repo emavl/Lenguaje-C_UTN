@@ -4,11 +4,12 @@
  *  Created on: 1 oct. 2022
  *      Author: Ema
  */
+
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
-#include "inputs.h"
+
 
 int verificarConfirmacion(char* mensaje)
 {
@@ -33,6 +34,7 @@ int utn_getChar ( char* pResultado, char* mensaje, char* mensajeError, int reint
 		while(reintentos > 0)
 		{
 			reintentos--;
+			fflush(stdin);
 			printf ( "%s" ,mensaje);
 			if(getChar(aux)==1)
 			{
@@ -160,13 +162,13 @@ int getString(char input[], int tam)
     {
         fflush(stdin);
         fgets(auxString,tam,stdin);
-        if (auxString[strlen(auxString)-1]=='\n')//le cambia el enter por el final
+        if (auxString[strlen(auxString)-1]=='\n')
         {
             auxString[strlen(auxString)-1]='\0';
         }
         if(strlen(auxString)<= tam)
         {
-            strncpy(input, auxString, tam);//copia cadena en la variable destino
+            strncpy(input, auxString, tam);
             isOk=0;
         }
     }
@@ -178,8 +180,8 @@ int SizeString(char string[]) {
 	int i = 0;
 
 	if (string != NULL) {
-		strlwr(string); //convierte la cadena en minuscula
-		string[0] = toupper(string[0]); //toupper convierte la primer letra en mayuscula
+		strlwr(string);
+		string[0] = toupper(string[0]);
 		while (string[i] != '\0') {
 			if (string[i] == ' ') {
 				string[i + 1] = toupper(string[i + 1]);
@@ -237,7 +239,7 @@ int utn_getCaracter(char *resultado, char *mensaje, char *mensajeError,
 	}
 	return retorno;
 }
-//-----------------------------------INT-----------------------------------
+//------------------------------  N u m e r o s  ------------------------------
 
 
 int esNumerico(char str[]) {
@@ -314,15 +316,15 @@ int isInt(char input[])
 
 int getInt(int* input)
 {
-    char auxString[400];
-    int isOk = -1;
+    char auxString[30];
+    int retorno = 0;
 
-    if(!(getString(auxString,sizeof(auxString))) && !(isInt(auxString))) //podria usar sizeof(auxString) en vez del valor fijo 400
+    if(!(getString(auxString,sizeof(auxString))) && !(isInt(auxString)))
     {
-    	*input=atoi(auxString); // RECIBE UNA CADENA Y DEVUELVE UN VALOR INT
-    	isOk=0;
+    	*input=atoi(auxString);
+    	retorno = 1;
     }
-    return isOk;
+    return retorno;
 }
 
 //int utn_getInt(short *input, char mensaje[], char mensajeError[], int min,

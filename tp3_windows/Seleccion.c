@@ -9,6 +9,7 @@
 #include "LinkedList.h"
 #include "Controller.h"
 #include "Seleccion.h"
+#include "outputs.h"
 
 void selec_delete(Seleccion* this) {
 	if ( this != NULL) {
@@ -98,11 +99,122 @@ void Seleccion_print(Seleccion* this){
 			selec_getPais(this, pais);
 			selec_getConfederacion(this, confederacion);
 			selec_getConvocados(this, &convocados);
-			printf("%5d |%20s |%20s |%4d\n",id,pais,confederacion,convocados);
+			printf("%5d |%20s |%20s |%8d    |\n",id,pais,confederacion,convocados);
 		} else {
 			printf("\nla memoria esta llena ");
 		}
 
 }
+void Seleccion_printSoloPais(Seleccion* this){
+
+	char pais[25];
+	int id, convocados;
+
+	if ( this != NULL) {
+			selec_getId(this, &id);
+			selec_getPais(this, pais);
+			selec_getConvocados(this, &convocados);
+			printf("%5d |%15s |  %6d     |\n",id,pais,convocados);
+		}
+}
+
+void Seleccion_printPais(LinkedList* pArrayListSeleccion){
+	int i, cantidad;
+	Seleccion* auxSeleccion;
+	cantidad = ll_len(pArrayListSeleccion);
+
+	for(i = 0; i < cantidad; i++){
+		auxSeleccion = (Seleccion*) ll_get(pArrayListSeleccion, i);
+		Seleccion_printSoloPais(auxSeleccion);
+	}
+}
+
+// >>>--------------------►     O r d e n a m i e n t o.
+
+int Seleccion_compConfederacion(void* Seleccion1, void* Seleccion2) {
+	int resultado = -1;
+	char auxSeleccion1[128];
+	char auxSeleccion2[128];
+	Seleccion* p1 = NULL;
+	Seleccion* p2 = NULL;
+
+	if(Seleccion1!=NULL && Seleccion2!=NULL)
+	{
+		p1 = (Seleccion*) Seleccion1;
+		p2 = (Seleccion*) Seleccion2;
+
+		selec_getConfederacion(p1, auxSeleccion1);
+		selec_getConfederacion(p2, auxSeleccion2);
+
+		resultado = strcmp(auxSeleccion1,auxSeleccion2);
+	}
+
+	return resultado;
+}
 
 
+void Seleccion_opcConfederacion(LinkedList* pArrayListSeleccion) {
+
+	int orden;
+    menuCriterio(&orden);
+
+	if (!ll_sort(pArrayListSeleccion, Seleccion_compConfederacion, orden)) {
+		if (orden) {
+			printf("\nSe ha ordenado la lista de Confederaciones de Z-A \n");
+		} else {
+			if (!orden) {
+				printf(
+						"\n\nSe ha ordenado la lista de Confederaciones de A-Z \n\n");
+			}
+		}
+	}
+}
+
+
+int Seleccion_compararID(void* Seleccion1, void* Seleccion2)
+{
+	int resultado = -1, iD1, iD2;
+	char auxSeleccion1[30];
+	char auxSeleccion2[30];
+	Seleccion* p1 = NULL;
+	Seleccion* p2 = NULL;
+
+	if(Seleccion1!=NULL && Seleccion2!=NULL)
+	{
+		p1 = (Seleccion*) Seleccion1;
+		p2 = (Seleccion*) Seleccion2;
+
+		selec_getId(p1, &iD1);
+		selec_getId(p2, &iD2);
+
+
+		itoa(iD1, auxSeleccion1,30);
+		itoa(iD2, auxSeleccion2,30);
+
+		resultado = strcmp(auxSeleccion1,auxSeleccion2);
+	}
+
+	return resultado;
+}
+
+int jug_compPaisDeSeleccion(void* Seleccion1, void* Seleccion2) {
+	int resultado = -1;
+	char auxSeleccion1[128];
+	char auxSeleccion2[128];
+
+	Seleccion* p1 = NULL;
+	Seleccion* p2 = NULL;
+
+	if (Seleccion1 != NULL && Seleccion2 != NULL)
+	{
+		p1 = (Seleccion*) Seleccion1;
+		p2 = (Seleccion*) Seleccion2;
+
+		strcpy(auxSeleccion1,p1->pais);
+		strcpy(auxSeleccion2, p2->pais);
+
+		resultado = strcmp(auxSeleccion1,auxSeleccion2);
+	}
+
+	return resultado;
+}

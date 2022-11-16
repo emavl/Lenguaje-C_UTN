@@ -7,7 +7,7 @@ void limpiarConsola(void)
 
 void mostrarSeparador(void)
 {
-	printf("--------------\n");
+	printf("\n------------------------\n");
 }
 
 void ejecutarMenu(int *opcion) {
@@ -49,31 +49,31 @@ void ejecutarMenu(int *opcion) {
 								"10. Guardar archivos .CSV\n"
 								"11. Salir\n"
 								 "-------------------------------------\n"
-								 "Opcion invalida, reingrese: ", 1, 7);
+								 "Opcion invalida, reingrese: ", 1,11);
 
 }
 
-void menuModificar(char letra) {
 
-	   utn_getCaracter(&letra, "\nQue campo desea modificar "
-							"-------------------------------------\n"
-							"\na) Nombre\n"
-							"\nb) Edad\n"
-							"\nc) Posicion\n"
-							"\nd) Nacionalidad\n"
-							"\ne) volver atras\n"
-							 "-------------------------------------\n"
-							 "Ingrese una opcion: "
-							 "-------------------------------------\n",
-							 "-------------------------------------\n"
-							 "Opcion invalida, reingrese:  "
-							 "-------------------------------------\n"
-							"\na) Nombre\n"
-							"\nb) Edad\n"
-							"\nc) Posicion\n"
-							"\nd) Nacionalidad\n"
-							"\ne) volver atras\n", 'a', 'e', 3);
+int menuModificar(int* opcion) {
 
+	pedirEntero(opcion, "\nQue campo desea modificar \n"
+						"-------------------------------------"
+						"\n1) Nombre\n"
+						"\n2) Edad\n"
+						"\n3) Posicion\n"
+						"\n4) Nacionalidad\n"
+						"\n5) volver atras\n"
+						 "-------------------------------------\n"
+						 "Ingrese una opcion: ",
+						 "Opcion invalida, reingrese:  "
+						 "-------------------------------------\n"
+						"\n1) Nombre\n"
+						"\n2) Edad\n"
+						"\n3) Posicion\n"
+						"\n4) Nacionalidad\n"
+						"\n5) volver atras\n", 1, 5);
+	printf("-------------------------------------\n");
+	return 0;
 }
 int menuListar(int* opcion) {
 
@@ -84,7 +84,7 @@ int menuListar(int* opcion) {
 						"\n4) volver atras\n"
 						 "-------------------------------------\n"
 						 "Ingrese una opcion: ",
-						 "-------------------------------------\n"
+						 "\n-------------------------------------"
 						 "Opcion invalida, reingrese\n\n  "
 						"\n1) Todos los Jugadores."
 						"\n2) Todas las selecciones."
@@ -94,41 +94,98 @@ int menuListar(int* opcion) {
 	return 0;
 }
 
-int menuOrdenar(int* opcion) {
+int menuOrdJug(int* opcion) {
 
 	pedirEntero(opcion, "-------------------------------------\n"
-									 "Menu de Ordenamiento:\n\n"
-									 "1) Jug por nacionalidad.\n"
-									 "2) seleccion por confederacion.\n"
-									 "3) jugador por edad.\n"
-									 "4) jugador por Nombre.\n"
-									 "5) volver atras\n"
+									 "Menu de Ordenamiento jugador:\n\n"
+									 "1) Jugador por nacionalidad.\n"
+									 "2) jugador por edad.\n"
+									 "3) jugador por Nombre.\n"
+									 "4) volver atras\n"
 									 "-------------------------------------\n"
 									 "Ingrese una opcion: ",
 									 "-------------------------------------\n"
-									 "1) Jug por nacionalidad.\n"
-									 "2) seleccion por confederacion.\n"
-									 "3) jugador por edad.\n"
-									 "4) jugador por Nombre.\n"
-									 "5) volver atras\n"
+									 "Menu de Ordenamiento jugador:\n\n"
+									 "1) Jugador por nacionalidad.\n"
+									 "2) jugador por edad.\n"
+									 "3) jugador por Nombre.\n"
+									 "4) volver atras\n"
 									 "-------------------------------------\n"
 									 "Opcion invalida, reingrese: ", 1, 5);
 	return 0;
 }
-int menuCriterio()
-{
-	int opciones;
 
-	pedirEntero(&opciones,  "\n >>>>----------------► Criterio  \n"
-							"0. Listado descendente.\n"
-							"1. Listado ascendente.\n"
+int menuOrdenar(int* opcion) {
+
+	pedirEntero(opcion, "-------------------------------------\n"
+									 "Seleccione lo que desea ordenar:\n\n"
+									 "1) Jugadores.\n"
+									 "2) Selecciones.\n"
+									 "3) volver atras\n"
+									 "-------------------------------------\n"
+									 "Ingrese una opcion: ",
+									 "-------------------------------------\n"
+									 "1) Jugadores.\n"
+									 "2) Selecciones.\n"
+									 "3) volver atras\n"
+									 "-------------------------------------\n"
+									 "Opcion invalida, reingrese: ", 1, 5);
+	return 0;
+}
+int menuCriterio(int* opcion)
+{
+
+	pedirEntero(opcion,"\n >>>>----------------► Criterio  \n"
+							"0. Listado ascendente.\n"
+							"1. Listado descendente.\n"
 							"-------------------------------------\n"
 							"Ingrese una opcion: ",
 							"-------------------------------------\n"
-							"0. Listado descendente.\n"
-							"1. Listado ascendente.\n"
+							"0. Listado ascendente.\n"
+							"1. Listado descendente.\n"
 							"-------------------------------------\n"
 							"Opcion invalida, reingrese: ", 0, 1);
 
-	return opciones;
+
+	return 0;
+}
+
+int menuConvocar (int* opcion)
+{
+
+	pedirEntero(opcion,"\n Menu:  \n"
+						"1. Convocar.\n"
+						"2. Quitar de la Seleccion.\n"
+						"3) volver atras\n"
+						"-------------------------------------\n"
+						"Ingrese una opcion: ",
+						"-------------------------------------\n"
+						"1. Convocar.\n"
+						"2. Quitar de la Seleccion.\n"
+						"3. volver atras\n"
+						"-------------------------------------\n"
+						"Opcion invalida, reingrese: ", 1, 2);
+
+
+	return 0;
+}
+int menuConvocados(int* opcion)
+{
+
+	pedirEntero(opcion,		"Menu Convocados:\n"
+							"1) Convocar:\n"
+							"2) Quitar de la Seleccion:\n"
+							"3) Salir\n"
+							"-------------------------------------\n"
+							"Ingrese una opcion: ",
+							"-------------------------------------\n"
+							"Menu Convocados:\n"
+							"1) Convocar:\n"
+							"2) Quitar de la Seleccion:\n"
+							"3) Salir\n"
+							"-------------------------------------\n"
+							"Opcion invalida, reingrese: ", 1, 3);
+
+
+	return 0;
 }

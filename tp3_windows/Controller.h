@@ -13,3 +13,6 @@ int controller_listarSelecciones(LinkedList* pArrayListSeleccion);
 int controller_ordenarSelecciones(LinkedList* pArrayListSeleccion);
 int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSeleccion);
 int controller_listar(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador );
+int controller_Ordenamiento(LinkedList* clonUno,LinkedList* clonDos);
+int controller_convocados(LinkedList *pArrayListJugador, LinkedList *pArrayListSeleccion);
+int controller_cargarArchivoBinario(char* path , LinkedList* pArrayListJugador);
