@@ -48,13 +48,6 @@ int menuCriterio(int* opcion);
  */
 int menuOrdJug(int* opcion);
 /**
- * \fn int menuConvocar(int*)
- * \brief - menu de convocatoria del jugador *
- * \param opcion
- * \return
- */
-int menuConvocar (int* opcion);
-/**
  * \fn int menuConvocados(int*)
  * \brief menu de convocatoria de jugadores convocados y sin convocar *
  * \param opcion

@@ -94,15 +94,14 @@ int controller_agregarJugador(LinkedList* pArrayListJugador) {
  *
  */
 int controller_editarJugador(LinkedList* pArrayListJugador){
-	int retorno = -1;
+	int retorno = 0;
 
 	if (pArrayListJugador != NULL) {
 
 		printf("\n\nModificacion de jugadores\n");
 
 		if (jug_modificacion(pArrayListJugador) == 1) {
-
-			printf("\nSe ha modificado con exito\n\n");
+			retorno = 1;
 			system("pause");
 		} else {
 			printf("\nNo se han podido actualizar los datos\n\n");
@@ -120,7 +119,7 @@ int controller_editarJugador(LinkedList* pArrayListJugador){
  */
 int controller_removerJugador(LinkedList* pArrayListJugador)
 {
-	int retorno = -1;
+	int retorno = 0;
 	int opcion;
 	int i=0;
 
@@ -131,9 +130,9 @@ int controller_removerJugador(LinkedList* pArrayListJugador)
 		opcion = getValidInt("\n¿Cuantos jugadores desea dar de baja?: ", "\nError, reingrese: ", 1, 10);
 		do
 		{
-			if ( jug_baja(pArrayListJugador) == 0 )
+			if ( jug_baja(pArrayListJugador) == 1 )
 			{
-				retorno=0;
+				retorno = 1;
 			}
 			i++;
 		}while(opcion!=i);
@@ -228,27 +227,65 @@ int controller_guardarJugadoresModoTexto(char* path , LinkedList* pArrayListJuga
  * \return int
  *
  */
-int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador){
-	FILE* pFile;
-	int retorno;
-	pFile = fopen(path, "wb");
-	if(pFile == NULL)
+int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion){
+	int retornoOk = 0; // se tiene que poner en 1 cuando todo salga bien
+
+	FILE* archivo = NULL;// Actualmente contiene basura
+	Jugador* simpleJugador = NULL;
+	Seleccion* simpleSeleccion = NULL;
+
+	int auxLenJug = ll_len(pArrayListJugador);
+	int auxLenSec = ll_len(pArrayListSeleccion);
+
+	char nombreConfederacionInput[100];
+	char nombreConfederacionVali[100];
+	int idSeleccionJug;
+	int idSeleccion;
+	int valiExistConfe;
+
+	controller_listarSelecciones(pArrayListSeleccion);
+
+	if(pArrayListJugador != NULL && pArrayListSeleccion != NULL)
 	{
-		printf("\nNo se puedo abrir el archivo.\n");
-		retorno = 0;
+        controller_listarSelecciones(pArrayListSeleccion);
+        getStringLetras("\nIngrese el nombre de la confederacion en MAYUSCULAS para el listado de sus jugadores convocados: ",confElegida);
+
+        archivo = fopen(path, "wb");
+
+        // Terminamos de perdir //
+        for (int i = 0; i < auxLenJug; i++)
+        {
+        	simpleJugador = (Jugador*)ll_get(pArrayListJugador,i);
+        	jug_getSIdSeleccion(simpleJugador,&idSeleccionJug);
+
+        	if (idSeleccionJug > 0)
+        	{
+        		for(int k = 0; k < auxLenSec; k++)
+        		{
+        			simpleSeleccion = (Seleccion*)ll_get(pArrayListSeleccion, k);
+
+        			selec_getId(simpleSeleccion, &idSeleccion); // obtenemos el id de la confe
+        			if(idSeleccionJug == idSeleccion)
+        			{
+        				selec_getConfederacion(simpleSeleccion, nombreConfederacionVali); // obtenemos el nombre de la confederacion
+
+        				if(stricmp(nombreConfederacionInput,nombreConfederacionVali) == 0)
+        				{
+        					//printf("\n* ka04 *\n");
+        					fwrite(simpleJugador,sizeof(Jugador), 1, archivo);
+        					retornoOk = 1;
+        				}
+        			}
+
+        		}
+        	}
+        }
 	}
-
-	Node* indice = pArrayListJugador->pFirstNode;
-
-	for(; indice != NULL; indice = indice->pNextNode)
-	{
-		fwrite(indice->pElement,sizeof(Jugador),1,pFile);
-	}
-	fclose(pFile);
-
-	return retorno;
-
+	fclose(archivo);
+	// archivos
+	return retornoOk;
 }
+
 
 int controller_cargarArchivoBinario(char *path, LinkedList *pArrayListJugador) {
 	int retorno = 0;
@@ -408,7 +445,7 @@ int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSe
  */
 int controller_listar(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJugador ) {
 
-	int opcion ;
+	int opcion , retorno;
 	if ( pArrayListSeleccion != NULL && pArrayListJugador != NULL ) {
 		//do{
 			menuListar(&opcion);
@@ -420,11 +457,10 @@ int controller_listar(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJug
 						controller_listarSelecciones(pArrayListSeleccion);
 						break;
 					case 3:
-						if( jug_convocadoUnicamente(pArrayListJugador) == 0 ) {
-							printf("\nMil disculpas \n"
-									"No hay jugadores convocados (U_U)\n"
-									"pero tranquilo ! agregue 1 jugador y se lo mostraremos con gusto\n\n");
-							system("pause");
+						if( jug_convocadoUnicamente(pArrayListJugador) == 1 ) {
+							retorno = 1;
+						} else {
+							printf("\nNo hay jugadores convocados\n");
 						}
 						break;
 					case 4:
@@ -438,7 +474,7 @@ int controller_listar(LinkedList* pArrayListSeleccion, LinkedList* pArrayListJug
 	}
 
 
-	return 0;
+	return retorno;
 }
 
 // >>>--------------------►     O r d e n a m i e n t o.
@@ -535,9 +571,10 @@ int controller_Ordenamiento(LinkedList *pArrayListJugador, LinkedList *pArrayLis
 
 int controller_convocados(LinkedList *pArrayListJugador, LinkedList *pArrayListSeleccion) {
 
-	int retorno = 0;
-	int opcion;
+	int retorno = 0, opcion;
+
 	Jugador* auxJug = NULL;
+
 	limpiarConsola();
 	 do{
 		 menuConvocados(&opcion);
@@ -547,7 +584,7 @@ int controller_convocados(LinkedList *pArrayListJugador, LinkedList *pArrayListS
 				jug_convocados(pArrayListJugador, pArrayListSeleccion);
 			break;
 			case 2:
-				if ( jug_quitarSeleccion(auxJug, pArrayListJugador) == 0 ) {
+				if ( jug_quitarSeleccion(auxJug, pArrayListJugador, pArrayListSeleccion) == 0 ) {
 					printf("\n\n No se pudieron quitar los convocados\n\n");
 				}
 			break;
@@ -555,6 +592,6 @@ int controller_convocados(LinkedList *pArrayListJugador, LinkedList *pArrayListS
 
 			break;
 		}
-	 }while( opcion != 3);
+	 }while( (opcion < 1 ) || (opcion > 3) );
 	return retorno;
 }

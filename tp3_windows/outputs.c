@@ -150,25 +150,7 @@ int menuCriterio(int* opcion)
 	return 0;
 }
 
-int menuConvocar (int* opcion)
-{
 
-	pedirEntero(opcion,"\n Menu:  \n"
-						"1. Convocar.\n"
-						"2. Quitar de la Seleccion.\n"
-						"3) volver atras\n"
-						"-------------------------------------\n"
-						"Ingrese una opcion: ",
-						"-------------------------------------\n"
-						"1. Convocar.\n"
-						"2. Quitar de la Seleccion.\n"
-						"3. volver atras\n"
-						"-------------------------------------\n"
-						"Opcion invalida, reingrese: ", 1, 2);
-
-
-	return 0;
-}
 int menuConvocados(int* opcion)
 {
 

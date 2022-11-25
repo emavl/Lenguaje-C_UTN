@@ -57,7 +57,7 @@ int main()
     				system("pause");
     			} else {
     				if ( controller_agregarJugador(listaJugadores) == 1){
-    				printf("Se ha dado de alta correctamente");
+    				printf("\nSe ha dado de alta correctamente");
     				}
     			}
     		break;
@@ -66,7 +66,9 @@ int main()
     				printf("\nDebe cargar los archivos primero\n");
     				system("pause");
     			} else {
-    				controller_editarJugador(listaJugadores);
+    				if( controller_editarJugador(listaJugadores) == 1){
+    					printf("\nSe ha modificado con exito\n\n");
+    				}
     			}
     		break;
     		case 4:// ──────────►  Baja de jugador
@@ -74,7 +76,9 @@ int main()
 					printf("\nDebe cargar los archivos primero\n");
 					system("pause");
 				} else {
-    			controller_removerJugador(listaJugadores);
+					if ( controller_removerJugador(listaJugadores) == 1) {
+						printf("\nBaja realizada con exito\n");
+					}
 				}
     		break;
     		case 5:// ──────────►  Listados
@@ -90,7 +94,9 @@ int main()
 					printf("\nDebe cargar los archivos primero\n");
 					system("pause");
 				} else {
-					controller_convocados(listaJugadores, listaSeleccion);
+					if ( controller_convocados(listaJugadores, listaSeleccion) == 1){
+						printf("\nConvocados realizado con exito\n");
+					}
 				}
     		break;
     		case 7:// ──────────►  Ordenar y listar.
@@ -106,7 +112,7 @@ int main()
 					printf("\nDebe cargar los archivos primero\n");
 					system("pause");
 				} else {
-					controller_guardarJugadoresModoBinario("archJugador.b", listaJugadores);
+					controller_guardarJugadoresModoBinario("jugadoresBin.b", listaJugadores);
 				}
     		break;
     		case 9:// ──────────►  Cargar archivo binario.
@@ -114,7 +120,7 @@ int main()
 					printf("\nDebe cargar los archivos primero\n");
 					system("pause");
 				} else {
-					controller_cargarArchivoBinario("archJugador.b", listaJugadores);
+					controller_cargarArchivoBinario("jugadoresBin.b", listaJugadores);
 				}
     		break;
     		case 10:// ──────────►  Guardar archivos .CSV

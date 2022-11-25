@@ -230,7 +230,6 @@ int jug_sigId(int id) {
 		fprintf(archivo,"%d",siguienteId);
 		fclose(archivo);
 		retorno = 1;
-		printf("\n\n Siguiente id cargado %d", siguienteId);
 	} else {
 		printf("problema con el archivo no se pudo abrir");
 	}
@@ -246,7 +245,7 @@ int jug_add(LinkedList *pArrayListJugador, int *id) {
 			posicion[30], nacionalidad[30], respuesta[4];
 
 	int retorno = 0, edadAux, idPregunta;
-
+	Seleccion *auxSeleccion =  NULL;
 	Jugador *nuevo = NULL;
 
 	if (pArrayListJugador != NULL && id != NULL) {
@@ -259,20 +258,19 @@ int jug_add(LinkedList *pArrayListJugador, int *id) {
 			idPregunta = *id;
 			printf("\nEl nuevo Jugador obtendra la ID: %d\n", *id);
 			fflush(stdin);
-			utn_getChar(nombreCompleto, "\nIngrese el nombre por favor ────► ",
-					"\nError !  - ingrese unu valor valido ", 4);
+			utn_getString2(nombreCompleto, "\nIngrese el nombre por favor ────► ", "\nError !  - ingrese unu valor valido ");
+			SizeString(nombreCompleto);
 			edadAux = getValidInt("\nIngrese la edad ────► ",
 					"\nError - ingrese un valor acorde", 17, 50);
 			itoa(edadAux, edadStr, 10);
 			do {
-				utn_getString(posicion,
-						"\nIngrese su posicion siendo \n.aqueros\n.defensores\n.mediocampistas\n.delantero\n  ────► ",
-						"\nERROR. Ingrese su posicion siendo \n.Aqueros\n.Defensores\n.Mediocampistas\n.delanteros\n  ────►  ",
-						30, 8);
+				utn_getString2(posicion,"\nIngrese su posicion siendo \n.aqueros\n.defensores\n.mediocampistas\n.delantero\n  ────► ",
+						"\nERROR. Ingrese su posicion siendo \n.Aqueros\n.Defensores\n.Mediocampistas\n.delanteros\n  ────►  ");
 			} while ((strcmp("arquero", posicion) != 0)
 					&& (strcmp("defensor", posicion) != 0)
 					&& (strcmp("mediocampista", posicion) != 0)
 					&& (strcmp("delantero", posicion) != 0));
+
 
 			utn_getChar(nacionalidad,
 					"\nIngrese su nacionalidad por favor ────► ",
@@ -318,8 +316,8 @@ void borrarJugador(Jugador *this) {
 
 int jug_compNacionalidad(void* jugador1, void* jugador2) {
 	int resultado = -1;
-	char auxJugador1[128];
-	char auxJugador2[128];
+	char auxJugador1[128], auxJugador2[128];
+
 	Jugador* p1 = NULL;
 	Jugador* p2 = NULL;
 
@@ -332,6 +330,7 @@ int jug_compNacionalidad(void* jugador1, void* jugador2) {
 		jug_getNacionalidad(p2, auxJugador2);
 
 		resultado = strcmp(auxJugador1,auxJugador2);
+
 	}
 
 	return resultado;
@@ -341,8 +340,8 @@ int jug_compNacionalidad(void* jugador1, void* jugador2) {
 int jug_compEdad(void* jugador1, void* jugador2)
 {
 	int resultado = -1, edad1, edad2;
-	char auxJugador1[30];
-	char auxJugador2[30];
+	char auxJugador1[30], auxJugador2[30];
+
 	Jugador* p1 = NULL;
 	Jugador* p2 = NULL;
 
@@ -367,8 +366,7 @@ int jug_compEdad(void* jugador1, void* jugador2)
 
 int jug_compNombre(void* jugador1, void* jugador2) {
 	int resultado = -1;
-	char auxJugador1[128];
-	char auxJugador2[128];
+	char auxJugador1[128], auxJugador2[128];
 	Jugador* p1 = NULL;
 	Jugador* p2 = NULL;
 
@@ -522,8 +520,7 @@ int jug_opcModificarEdad( Jugador* auxiliar)
 			jug_setEdad(auxiliar, edad);
 			jug_print(auxiliar);
 			retorno = 1;
-		}else
-		{
+		} else	{
 			printf("Modificacion cancelada");
 		}
 
@@ -605,10 +602,9 @@ int jug_buscarId(LinkedList* pArrayListaJugador, int id ) {
 
 int jug_baja(LinkedList* pArrayListaJugador)
 {
-	int retorno = -1;
-	int id;
-	int index = -1;
+	int retorno = 0, id, index = -1;
 	char respuesta[4];
+
 	Jugador* aux = NULL;
 
 	if(pArrayListaJugador!=NULL)
@@ -627,8 +623,7 @@ int jug_baja(LinkedList* pArrayListaJugador)
 			if(!(stricmp(respuesta,"si")))
 			{
 				ll_remove(pArrayListaJugador,index);
-				printf("Baja realizada con exito\n");
-				retorno = 0;
+				retorno = 1;
 			}else
 			{
 				printf("Baja cancelada\n");
@@ -673,6 +668,7 @@ int jug_convocados(LinkedList *pArrayListaJugador,
 			if ( !(stricmp(respuesta,"si"))) {
 				 jug_convocarSelec(auxJug, pArrayListSeleccion);
 				retorno = 1;
+
 			}  else {
 				printf(" Cancelando . . .\n");
 				system("pause");
@@ -724,12 +720,14 @@ int jug_opcPaisSeleccion( Jugador* auxJug, LinkedList *pArrayListSeleccion) {
 					"\nRespuesta invalida, ingrese [si/no]\n", 4, 3);
 			limpiarConsola();
 			if ( !(stricmp(respuesta,"si"))) {
+
 				jug_setIdSeleccion(auxJug, idSelecion);
 				convocados++;
 				selec_setConvocados(auxSelec, convocados);
 				jug_print(auxJug);
 				printf("\nJugador modificado (^_^)/  \n\n");
 				system("\npause");
+
 				retorno = 1;
 			} else {
 				printf("Modificacion cancelada");
@@ -745,35 +743,47 @@ int jug_opcPaisSeleccion( Jugador* auxJug, LinkedList *pArrayListSeleccion) {
 
 int jug_convocadoUnicamente(LinkedList *pArrayListaJugador) {
 	int idSeleccion, cantidad, i, retorno = 0;
-	Jugador *auxjug;
+
+	Jugador* auxjug = NULL;
 
 	cantidad = ll_len(pArrayListaJugador);
+
 	for (i = 0; i < cantidad; i++) {
 		auxjug = (Jugador*) ll_get(pArrayListaJugador, i);
-		if (jug_getSIdSeleccion(auxjug, &idSeleccion) == 0) {
+
+		jug_getSIdSeleccion(auxjug, &idSeleccion);
+
 			if (idSeleccion > 0) {
 				jug_print(auxjug);
 				retorno = 1;
-			} else {
-				retorno = 0;
 			}
 		}
-	}
 	return retorno;
 }
 
-int jug_quitarSeleccion(Jugador *auxJug, LinkedList *pArrayListaJugador) {
+int jug_quitarSeleccion(Jugador *auxJug, LinkedList *pArrayListaJugador, LinkedList *pArrayListSeleccion) {
 
-	int retorno = 0, idSelecion, size, idNuevo = 0;
+	int retorno = 0, idSelecion, size, idNuevo = 0, convocados, idSeleccionJug;
 	char respuesta[4];
+
+	Seleccion* auxSelec = NULL;
+
+	if (jug_convocadoUnicamente(pArrayListaJugador) == 1) {
+
 	size = ll_len(pArrayListaJugador);
-
-		if (jug_convocadoUnicamente(pArrayListaJugador) == 1) {
-
 			idSelecion = getValidInt(
 							"\n\nIngrese el ID del jugador para quitarlo de la seleccion  ───► ",
 							"\nError,valor invalido ", 1, size);
+
 			auxJug = (Jugador*) ll_get(pArrayListaJugador, idSelecion -1);
+
+			jug_getSIdSeleccion(auxJug, &idSeleccionJug);
+
+
+			auxSelec = (Seleccion*) ll_get(pArrayListSeleccion, idSeleccionJug -1 );
+
+			selec_getConvocados(auxSelec, &convocados);
+
 			utn_getString(respuesta,
 					"\n¿Esta seguro que desea modificarlo?[si/no] ───► ",
 					"\nRespuesta invalida, ingrese [si/no]\n", 4, 3);
@@ -781,6 +791,8 @@ int jug_quitarSeleccion(Jugador *auxJug, LinkedList *pArrayListaJugador) {
 			if (!(stricmp(respuesta, "si"))) {
 
 				jug_setIdSeleccion(auxJug, idNuevo);
+				convocados--;
+				selec_setConvocados(auxSelec, convocados);
 				jug_print(auxJug);
 				printf("\nJugador modificado (^_^)/  \n\n");
 				system("\npause");

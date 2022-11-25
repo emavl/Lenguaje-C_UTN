@@ -4,27 +4,114 @@
  *  Created on: 1 oct. 2022
  *      Author: Ema
  */
-
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "inputs.h"
 
 
-int verificarConfirmacion(char* mensaje)
-{
-	int retorno = -1;
-	char respuesta;
-
-	pedirCaracter(&respuesta, mensaje);
-	if(respuesta == 's' || respuesta == 'S')
-	{
-		retorno = 0;
-	}
-	return retorno;
-}
+//int verificarConfirmacion(char* mensaje)
+//{
+//	int retorno = -1;
+//	char respuesta;
+//
+//	pedirCaracter(&respuesta, mensaje);
+//	if(respuesta == 's' || respuesta == 'S')
+//	{
+//		retorno = 0;
+//	}
+//	return retorno;
+//}
 
 //◄─────────────────  C H A T  ───────────────────────►
+
+int utn_getString2(char cadena[], char mensaje[],char msjError[])
+{
+    int rto = -1;
+    char aux[300];
+
+    if( cadena != NULL && mensaje != NULL && msjError != NULL )
+    {
+        rto = 0;
+
+        getString2(aux, mensaje, 300);
+
+        while(validar_Cadena(aux)==-1 || validaNoEspaciosContinuos(aux) != 0)
+        {
+        	getString2(aux, msjError, 30);
+        }
+    }
+    strcpy(cadena,aux);
+    return rto;
+}
+
+// SOLO VALIDA NO PASAR EL LIMITE DE UN ARRAY DE CARACTERES
+void getString2(char palabra[],char mensaje[],int tamanio)
+{
+	char auxilar[1024];
+	int cantidadLetras;
+
+	printf("%s",mensaje);
+	setbuf(stdin,NULL);
+	scanf("%[^\n]",auxilar);
+
+	cantidadLetras = strlen(auxilar);
+
+	while(cantidadLetras > tamanio)
+	{
+		printf("%s",mensaje);
+		setbuf(stdin,NULL);
+		scanf("%[^\n]",auxilar);
+	}
+	strcpy(palabra,auxilar);
+}
+
+
+int validar_Cadena(char string[])
+{
+    int i=0;
+    int rto=0;
+    int j;
+
+    j = strlen(string);
+
+    while(i<j && rto == 0)
+    {
+        if(isalpha(string[i])!=0 || string[i] == ' ' || string[i] == '.'|| string[i] == '_')
+        {
+            i++;
+        }
+        else
+        {
+            rto = -1;
+        }
+    }
+    return rto;
+}
+
+int validaNoEspaciosContinuos(char str[])
+{
+    int i, rto, espaciosContinuos=0;
+    int len = strlen(str);
+
+    for(i=0;i<len;i++)
+    {
+        if(str[i] == ' ' && str[i+1] == ' ')
+        {
+            espaciosContinuos = -1;
+        }
+    }
+    if(espaciosContinuos == -1 || str[0] == ' ')
+    {
+        rto =-1;
+    }
+    else
+    {
+        rto=0;
+    }
+    return rto;
+}
 int utn_getChar ( char* pResultado, char* mensaje, char* mensajeError, int reintentos)
 {
 	char aux[256];
@@ -39,6 +126,7 @@ int utn_getChar ( char* pResultado, char* mensaje, char* mensajeError, int reint
 			if(getChar(aux)==1)
 			{
 				strcpy(pResultado,aux);
+
 				retorno = 1;
 				break;
 			}
@@ -55,10 +143,10 @@ int utn_getChar ( char* pResultado, char* mensaje, char* mensajeError, int reint
 int getChar ( char * pResultado)
 {
 	int retorno = 0;
-	char buffer[256];
+	char buffer[50];
 	if (pResultado != NULL)
 	{
-		if (myGets(buffer, sizeof(buffer)) == 0 && esNumericaChar(buffer) == 1) {
+		if (getString(buffer, 50) == 0 && esNumericaChar(buffer) == 1 && validaNoEspaciosContinuos(buffer) == 1 ) {
 			strcpy(pResultado, buffer);
 			retorno = 1;
 		}
@@ -84,7 +172,7 @@ int esNumericaChar(char *cadena) {
 	if (cadena != NULL && strlen(cadena) > 0) {
 		retorno = 1;
 		while (cadena[i] != '\0') {
-			if (cadena[i] >= '0' && cadena[i] <= '9') {
+			if (cadena[i] >= '0' && cadena[i] <= '9' && cadena[i] != ' ') {
 				retorno = 0;
 				break;
 			}
@@ -327,29 +415,29 @@ int getInt(int* input)
     return retorno;
 }
 
-//int utn_getInt(short *input, char mensaje[], char mensajeError[], int min,
-//		int max, int reintentos) {
-//	int isOk = -1;
-//	int auxInt;
-//
-//	if (mensaje != NULL && mensajeError != NULL
-//			&& min <= max&& reintentos >= 0 && input != NULL) {
-//		do {
-//			reintentos--;
-//			printf("%s", mensaje);
-//			fflush(stdin);
-//			if (!(getInt(&auxInt)) && auxInt >= min && auxInt <= max) {
-//				fflush(stdin);
-//				*input = auxInt;
-//				isOk = 0;
-//				break;
-//			} else {
-//				printf("%s ", mensajeError);
-//			}
-//		} while (reintentos >= 0);
-//	}
-//	return isOk;
-//}
+int utn_getInt(int *input, char mensaje[], char mensajeError[], int min,
+		int max, int reintentos) {
+	int isOk = -1;
+	int auxInt;
+
+	if (mensaje != NULL && mensajeError != NULL
+			&& min <= max&& reintentos >= 0 && input != NULL) {
+		do {
+			reintentos--;
+			printf("%s", mensaje);
+			fflush(stdin);
+			if (!(getInt(&auxInt)) && auxInt >= min && auxInt <= max) {
+				fflush(stdin);
+				*input = auxInt;
+				isOk = 0;
+				break;
+			} else {
+				printf("%s ", mensajeError);
+			}
+		} while (reintentos >= 0);
+	}
+	return isOk;
+}
 //-----------------------------------FLOAT-----------------------------------
 int pedirEntero(int* entero, char* mensaje, char* mensajeError, int min, int max)
 {

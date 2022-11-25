@@ -45,6 +45,18 @@ int pedirCadena(char* cadena, char* mensaje, char* mensajeError, int max);
 int pedirCaracter(char* caracter, char* mensaje);
 
 //-----------------------------------------------CHAR----------------------------------------------------
+int utn_getString2(char cadena[], char mensaje[],char msjError[]);
+
+void getString2(char palabra[],char mensaje[],int tamanio);
+
+int validar_Cadena(char string[]);
+/**
+ * \fn int validaNoEspaciosContinuos(char[])
+ * \brief  funcion que valida espacios continuos
+ * \param str
+ * \return
+ */
+int validaNoEspaciosContinuos(char str[]);
 /**
  * \fn int utn_getChar(char*, char*, char*, int)
  * \brief
